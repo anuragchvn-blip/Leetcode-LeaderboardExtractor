@@ -1,39 +1,20 @@
-// Function to extract LeetCode leaderboard data
-function extractLeetCodeLeaderboard() {
-    // Select all rows in the leaderboard table
-    var rows = document.querySelectorAll('.ranking-table-row');
-    var result = [];
+var leaderboardList = document.querySelectorAll('.leaderboard-list-view');
+var result = [];
 
-    rows.forEach(function(row) {
-        var user_info = {};
+leaderboardList.forEach(function(entry) {
+    var user_info = {};
 
-        // Extract Rank
-        var rankElement = row.querySelector('.ranking-col span');
-        if (rankElement) {
-            user_info['Rank'] = rankElement.innerText.trim();
-        }
+    var rank = entry.querySelector('.span-flex-2.text-center p').innerText.trim();
+    user_info['Rank'] = rank;
 
-        // Extract Username
-        var usernameElement = row.querySelector('.ranking-username a');
-        if (usernameElement) {
-            user_info['Username'] = usernameElement.innerText.trim();
-        }
+    var name = entry.querySelector('.span-flex-4 a.leaderboard-hackername').innerText.trim();
+    user_info['Name'] = name;
 
-        // Extract Score
-        var scoreElement = row.querySelector('.ranking-score span');
-        if (scoreElement) {
-            user_info['Score'] = scoreElement.innerText.trim();
-        }
+    var score = entry.querySelector('.span-flex-3 p').innerText.trim();
+    user_info['Score'] = score;
 
-        // Push the user info to the result array
-        result.push(user_info);
-    });
+    result.push(user_info);
+});
 
-    // Convert the result array to a JSON string
-    var json_result = JSON.stringify(result, null, 2);
-    return json_result;
-}
-
-// Example usage
-var leaderboardData = extractLeetCodeLeaderboard();
-console.log(leaderboardData);
+var json_result = JSON.stringify(result, null, 2);
+console.log(json_result);
